@@ -25,6 +25,9 @@ Vue.createApp({
 
       return this.categories.indexOf(categoryName) !== -1;
     },
+    hasTodos() {
+      return this.todos.length > 0;
+    },
   },
   watch: {
     todos: {
@@ -88,7 +91,7 @@ Vue.createApp({
 
     if (categories) {
       // オブジェクトにしてcategoriesに格納
-      this.categories = JSON.parse("categories");
+      this.categories = JSON.parse(categories);
     }
   },
 }).mount("#app");
