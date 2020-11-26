@@ -26,6 +26,22 @@ Vue.createApp({
       return this.categories.indexOf(categoryName) !== -1;
     },
   },
+  watch: {
+    todos: {
+      handler(next) {
+        // localStorageの値は文字列しか使用できないのでJSON.stringifyする
+        window.localStorage.setItem("todos", JSON.stringify(next));
+      },
+      deep: true,
+    },
+    categories: {
+      handler(next) {
+        // localStorageの値は文字列しか使用できないのでJSON.stringifyする
+        window.localStorage.setItem("categories", JSON.stringify(next));
+      },
+      deep: true,
+    },
+  },
   methods: {
     createTodo() {
       // 何も入力されていなかったらTodo作成しない
@@ -61,11 +77,18 @@ Vue.createApp({
       this.categoryName = "";
     },
   },
-  watch: {
-    // 監視したいdataやcomputedのプロパティ名(変化後の値, 変化前の値)
-    todoTitle(next, prev) {
-      console.log("next: " + next);
-      console.log("prev: " + prev);
-    },
+  created() {
+    const todos = window.localStorage.getItem("todos");
+    const categories = window.localStorage.getItem("categories");
+
+    if (todos) {
+      // オブジェクトにしてtodosに格納
+      this.todos = JSON.parse(todos);
+    }
+
+    if (categories) {
+      // オブジェクトにしてcategoriesに格納
+      this.categories = JSON.parse("categories");
+    }
   },
 }).mount("#app");
