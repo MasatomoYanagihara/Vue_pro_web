@@ -17,6 +17,7 @@ Vue.createApp({
         },
       ],
       selectedThumbnailId: undefined, // 選択したサムネイルID
+      imageTransitionName: "prev", // 画像のトランジション
       isVisible: false, // 表示状態
       thumbnailHeight: 0, // モーダル内のサムネイルの高さ
       isThumbnailLoaded: false, // サムネイルが読み込み完了したかどうか
@@ -36,6 +37,27 @@ Vue.createApp({
         return thumb.id === self.selectedThumbnailId;
       });
     },
+    // 現在表示中のサムネイルのインデックス番号
+    currentThumbnailIndex() {
+      const self = this;
+      return _.findIndex(self.thumbnails, function (thumb) {
+        return thumb.id === self.selectedThumbnailId;
+      });
+    },
+    // NEXTボタンを押した時に表示するサムネイルオブジェクト
+    nextThumbnail() {
+      const nextIndex = this.currentThumbnailIndex + 1;
+      return this.thumbnails[
+        nextIndex > this.thumbnails.length - 1 ? 0 : nextIndex
+      ];
+    },
+    // PREVボタンを押した時に表示するサムネイルオブジェクト
+    prevThumbnail() {
+      const prevIndex = this.currentThumbnailIndex - 1;
+      return this.thumbnails[
+        prevIndex < 0 ? this.thumbnails.length - 1 : prevIndex
+      ];
+    },
     // サムネイルをラップしてる要素の高さ
     containerStyle() {
       return {
@@ -54,6 +76,12 @@ Vue.createApp({
     closeModal() {
       this.isVisible = false;
       this.selectedThumbnailId = undefined;
+    },
+    onClickPrev() {
+      this.selectedThumbnailId = this.prevThumbnail.id;
+    },
+    onClickNext() {
+      this.selectedThumbnailId = this.nextThumbnail.id;
     },
     onLoad(event) {
       this.thumbnailHeight =
