@@ -12,14 +12,28 @@
   <div id="app" class="container">
     <h1>Modal Sample</h1>
 
-    <!-- サムネイル表示 -->
+    <!-- サムネイル -->
     <ul class="imageList">
       <li v-for="thumb in thumbnails" :key="thumb.id" class="imageList-item">
-        <button type="button" class="imageList-button">
+        <button type="button" @click="openModal(thumb)" class="imageList-button">
           <img :src="thumb.src" class="imageList-thumb">
         </button>
       </li>
     </ul>
+
+    <!-- モーダル -->
+    <div class="modal-container" v-show="isVisible">
+      <div class="modal-overlay">
+        <div class="modal-body" v-if="currentThumbnail !== undefined">
+          <div class="modal-image-container" :class="{'isLoaded': isThumbnailLoaded}">
+            <div :style="containerStyle">
+              <img :src="currentThumbnail.src" alt="" class="modal-image" @load.prevent.stop="onLoad">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 
