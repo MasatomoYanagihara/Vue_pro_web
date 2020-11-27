@@ -44,10 +44,16 @@ Vue.createApp({
     },
   },
   methods: {
+    // モーダルを開く
     openModal(thumb) {
       // (thumb)でクリックしたサムネイル情報を受け取れる
       this.isVisible = true;
       this.selectedThumbnailId = thumb.id;
+    },
+    // オーダルを閉じる
+    closeModal() {
+      this.isVisible = false;
+      this.selectedThumbnailId = undefined;
     },
     onLoad(event) {
       this.thumbnailHeight =
