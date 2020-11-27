@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Modal Sample</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" />
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div id="app" class="container">
+    <h1>Modal Sample</h1>
+
+    <!-- サムネイル表示 -->
+    <ul class="imageList">
+      <li v-for="thumb in thumbnails" :key="thumb.id" class="imageList-item">
+        <button type="button" class="imageList-button">
+          <img :src="thumb.src" class="imageList-thumb">
+        </button>
+      </li>
+    </ul>
+  </div>
+
+
+  <!-- Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.js"></script>
+  <!-- Lodash -->
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+
+</html>
